@@ -27,11 +27,17 @@
     "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
     "lint": "eslint . --fix",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "deno:clean": "deno cache --reload",
+    "deno:build": "deno bundle src/index.ts dist/index.js",
+    "deno:lint": "deno lint",
+    "deno:test": "deno test"
   },
   "devDependencies": {
     "@cosmology/telescope": "^1.0.1",
-    "@types/jest": "^29.5.12"
+    "@types/jest": "^29.5.12",
+    "copyfiles": "^2.4.1",
+    "rimraf": "4.4.1"
   },
   "dependencies": {
     "@cosmjs/amino": "0.32.3",

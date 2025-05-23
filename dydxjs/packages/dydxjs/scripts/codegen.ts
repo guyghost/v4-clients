@@ -1,12 +1,12 @@
-import { TelescopeInput } from '@cosmology/telescope';
-import telescope from '@cosmology/telescope';
-import { join } from 'path';
-import { rimrafSync as rimraf } from 'rimraf';
+import { TelescopeInput } from 'https://deno.land/x/telescope@v1.0.0/mod.ts';
+import telescope from 'https://deno.land/x/telescope@v1.0.0/mod.ts';
+import { join } from 'https://deno.land/std@0.106.0/path/mod.ts';
+import { removeSync as rimraf } from 'https://deno.land/x/dx@0.1.0/mod.ts';
 
-import { AMINO_MAP } from './aminos';
+import { AMINO_MAP } from './aminos.ts';
 
-const protoDirs: string[] = [join(__dirname, '/../proto')];
-const outPath: string = join(__dirname, '../src');
+const protoDirs: string[] = [join(Deno.cwd(), 'proto')];
+const outPath: string = join(Deno.cwd(), 'src');
 rimraf(outPath);
 
 export const options: TelescopeInput = {
@@ -105,5 +105,5 @@ telescope(options)
   })
   .catch((e) => {
     console.error(e);
-    process.exit(1);
+    Deno.exit(1);
   });

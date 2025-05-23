@@ -20,24 +20,24 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
 
-      - name: Use Node.js 20.8.1
-        uses: actions/setup-node@v3
+      - name: Set up Deno
+        uses: denoland/setup-deno@v1
         with:
-          node-version: 20.8.1
-          registry-url: https://registry.npmjs.org
-          cache: "npm"
-          cache-dependency-path: '**/package-lock.json'
+          deno-version: v1.x
 
-      - name: Install
-        run: npm ci
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_READ }}
+      - name: Cache Deno modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/deno
+          key: ${{ runner.os }}-deno-${{ hashFiles('**/deno.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-deno-
 
-      - name: Run eslint
-        run: npm run lint
+      - name: Install dependencies
+        run: deno cache --lock=deno.lock --lock-write deps.ts
 
-      - name: Build
-        run: npm run build
+      - name: Run lint
+        run: deno lint
 
-      - name: Test
-        run: npm test
+      - name: Run tests
+        run: deno test --allow-net --allow-read

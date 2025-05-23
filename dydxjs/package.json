@@ -27,7 +27,11 @@
     "postinstall": "yarn symlink",
     "client": "yarn workspace ts-client",
     "dydxjs": "yarn workspace dydxjs",
-    "precodegen": "./packages/dydxjs/scripts/export_protos.sh"
+    "precodegen": "./packages/dydxjs/scripts/export_protos.sh",
+    "deno:clean": "deno cache --reload",
+    "deno:build": "deno bundle src/index.ts dist/index.js",
+    "deno:lint": "deno lint",
+    "deno:test": "deno test"
   },
   "devDependencies": {
     "@types/jest": "^29.5.11",

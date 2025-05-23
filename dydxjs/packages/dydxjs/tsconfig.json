@@ -2,7 +2,9 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "dist",
-    "rootDir": "src/"
+    "rootDir": "src/",
+    "lib": ["deno.ns", "deno.window", "esnext"],
+    "types": ["deno.ns", "deno.window"]
   },
   "include": ["src/**/*.ts"],
   "exclude": ["dist", "node_modules", "**/*.spec.*", "**/*.test.*"]

@@ -1,7 +1,7 @@
 import { cosmos } from '../src';
-import { it, expect } from '@jest/globals';
+import { assertEquals } from "https://deno.land/std@0.106.0/testing/asserts.ts";
 
-it('cosmos', () => {
+Deno.test('cosmos', () => {
     const message = cosmos.bank.v1beta1.MessageComposer.fromPartial.send({
         amount: [
             {
@@ -12,5 +12,17 @@ it('cosmos', () => {
         fromAddress: 'myaddress',
         toAddress: 'youraddress'
     });
-    expect(message).toMatchSnapshot();
-})
+    assertEquals(message, {
+        typeUrl: "/cosmos.bank.v1beta1.MsgSend",
+        value: {
+            fromAddress: "myaddress",
+            toAddress: "youraddress",
+            amount: [
+                {
+                    denom: "uatom",
+                    amount: "1"
+                }
+            ]
+        }
+    });
+});
